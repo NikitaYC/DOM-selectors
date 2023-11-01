@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #parent{
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+            width:300px;
+            margin: auto;
+            margin-top:100px;
+            padding: 20px;
+
+        }
+        #parent>#button{
+            width: 260px;
+            display: grid;
+            grid-template-columns: repeat(4,55px);
+            grid-template-rows: repeat(4,55px);
+            gap:10px 10px;
+            margin-left: 20px;
+
+        }
+        #parent>#block{
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            width: 250px;
+            height:55px;
+            margin-bottom: 10px;
+            margin-left:20px ;
+            border-radius: 10px;
+        }
+        #parent>div>button{
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            border-color:transparent;
+            font-size: larger;
+        }   
+        .black{
+            color:white;
+            background-color: black;
+        }
+        button:nth-child(13){
+            background-color: red;
+            color: white;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1 style="color:#004d4d; text-align: center;">Masai Calculator</h1>
+    <div id="parent">
+        <div id="block">
+        </div >
+        <div id="button">
+            <button class="number" >1</button>
+            <button class="number">2</button>
+            <button class="number">3</button>
+            <button class="black operator">+</button>
+            <button class="number">4</button>
+            <button class="number">5</button>
+            <button class="number">6</button>
+            <button class="black operator">-</button>
+            <button class="number">7</button>
+            <button class="number">8</button>
+            <button class="number">9</button>
+            <button class="black operator">X</button>
+            <button id="clear" class="number">C</button>
+            <button class="number">0</button>
+            <button class="black equals">=</button>
+            <button class="black operator">/</button>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+
+    let key = document.querySelectorAll(".number");
+    let operator = document.querySelectorAll(".black");
+    let head = document.getElementById("block");
+
+    let IsfirstNumber = true;
+    let opt = "";
+
+    let firstNumber = "";
+    let secondNumber = "";
+
+    let equal = document.querySelector(".black equals");
+
+
+    equal.addEventListener("click", function()
+    {
+        head.innerText = calculate(firstNumber,secondNumber,opt);
+    })
+
+    for(let i = 0; i < key.length; i++)
+    {
+        key[i].addEventListener("click", function()
+        {
+            if(IsfirstNumber == true)
+            {
+                firstNumber += key[i].innerText
+                head.innerText = firstNumber;
+            }
+            else{
+                
+                secondNumber += key[i].innerText
+                head.innerText = secondNumber;
+            }
+        })
+    }
+
+    for(let i = 0; i < operator.length; i++)
+    {
+        operator[i].addEventListener("click", function()
+        {
+            IsfirstNumber = false;
+            opt = operator[i].innerText;
+        })
+    }
+
+    function calculate(firstNumber,secondNumber,opt)
+    {
+        switch(opt)
+        {
+            case "+" :
+                return Number(firstNumber) + Number(secondNumber);
+            case "-" :
+                return Number(firstNumber) - Number(secondNumber);
+            case "X" :
+                return Number(firstNumber) * Number(secondNumber);
+            case "/" :
+                return Number(firstNumber) / Number(secondNumber);
+
+        }
+    }
+
+</script>
